@@ -1,0 +1,24 @@
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: 'user'
+      POSTGRES_PASSWORD: 'password'
+      POSTGRES_DB: 'chainlinklite'
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./config/init.sql:/docker-entrypoint-initdb.d/init.sql
+  libp2p-node:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    deploy:
+      mode: replicated
+      replicas: 10
+    depends_on:
+      - postgres
+  
+volumes:
+  pgdata:

@@ -1,0 +1,13 @@
+database:
+  url: "postgres://user:password@postgres:5432/chainlinklite?sslmode=disable"
+price_ticker:
+  url: "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd&include_market_cap=false&include_24hr_vol=false&include_24hr_change=false'"
+  mock: false # Use mock price ticker
+pubsub:
+  topic: "oracle/eth-price" # Topic to publish price updates to
+  fetch_price_interval: "30s" # Interval to fetch price from price ticker
+  min_signatures_to_write: 3 # Minimum number of signatures required to write to the database
+  min_interval_between_writes: "30s" # Minimum interval between writes to the database
+  discover_peers_interval: "30s" # Interval to discover new peers
+  port: 26657 # Port to listen for incoming connections
+log_level: 4 # Error level: 2, Warn level: 3, Info level: 4, Debug level: 5
